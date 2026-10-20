@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="一款零依赖、支持键盘和触屏操作的霓虹风格贪吃蛇小游戏。"
+    />
+    <meta name="theme-color" content="#07110f" />
+    <title>霓虹贪吃蛇 · Neon Snake</title>
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="ambient ambient-one" aria-hidden="true"></div>
+    <div class="ambient ambient-two" aria-hidden="true"></div>
+
+    <main class="app">
+      <header class="hero">
+        <div class="brand">
+          <div class="brand-mark" aria-hidden="true">
+            <span></span><span></span><span></span>
+          </div>
+          <div>
+            <p class="eyebrow">ARCADE / 01</p>
+            <h1>霓虹贪吃蛇</h1>
+          </div>
+        </div>
+
+        <button
+          class="icon-button"
+          id="soundButton"
+          type="button"
+          aria-label="关闭音效"
+          aria-pressed="true"
+          title="切换音效 (M)"
+        >
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path
+              d="M4 9.5v5h3.5L13 19V5L7.5 9.5H4Zm12.2-1.8a5.5 5.5 0 0 1 0 8.6M18.7 5a9 9 0 0 1 0 14"
+            />
+          </svg>
+        </button>
+      </header>
+
+      <section class="game-layout" aria-label="贪吃蛇游戏">
+        <div class="play-panel">
+          <div class="scoreboard">
+            <div class="score-card">
+              <span class="score-label">本局得分</span>
+              <strong id="scoreValue">000</strong>
+            </div>
+            <div class="score-card">
+              <span class="score-label">最高纪录</span>
+              <strong id="bestValue">000</strong>
+            </div>
+            <div class="score-card score-card-compact">
+              <span class="score-label">长度</span>
+              <strong id="lengthValue">04</strong>
+            </div>
+          </div>
+
+          <div class="board-shell" id="boardShell">
+            <canvas
+              id="gameCanvas"
+              width="720"
+              height="720"
+              tabindex="0"
+              aria-label="贪吃蛇游戏区域。使用方向键或 WASD 控制。"
+            ></canvas>
+
+            <div class="overlay" id="gameOverlay">
+              <div class="overlay-content">
+                <p class="overlay-kicker" id="overlayKicker">准备好了吗？</p>
+                <h2 id="overlayTitle">吞噬霓虹能量</h2>
+                <p class="overlay-copy" id="overlayCopy">
+                  避开墙壁和自己的身体，看看你能长到多长。
+                </p>
+                <button class="primary-button" id="primaryAction" type="button">
+                  <span id="primaryActionText">开始游戏</span>
+                  <span aria-hidden="true">→</span>
+                </button>
+                <p class="key-caption">按 <kbd>空格</kbd> 也可以开始</p>
+              </div>
+            </div>
+
+            <div class="level-chip" aria-live="polite">
+              <span class="level-dot"></span>
+              <span id="levelLabel">经典节奏</span>
+            </div>
+          </div>
+
+          <div class="mobile-controls" aria-label="触屏方向键">
+            <button class="dpad-button dpad-up" data-direction="up" type="button" aria-label="向上">
+              ↑
+            </button>
+            <button class="dpad-button dpad-left" data-direction="left" type="button" aria-label="向左">
+              ←
+            </button>
+            <div class="dpad-center" aria-hidden="true"></div>
+            <button class="dpad-button dpad-right" data-direction="right" type="button" aria-label="向右">
+              →
+            </button>
+            <button class="dpad-button dpad-down" data-direction="down" type="button" aria-label="向下">
+              ↓
+            </button>
+          </div>
+        </div>
+
+        <aside class="side-panel">
+          <section class="panel-section">
+            <div class="section-heading">
+              <span>01</span>
+              <h2>选择节奏</h2>
+            </div>
+            <div class="speed-options" role="group" aria-label="游戏速度">
+              <button class="speed-option" data-speed="relaxed" type="button">
+                <span>悠闲</span>
+                <small>170 ms</small>
+              </button>
+              <button class="speed-option is-active" data-speed="classic" type="button" aria-pressed="true">
+                <span>经典</span>
+                <small>120 ms</small>
+              </button>
+              <button class="speed-option" data-speed="intense" type="button">
+                <span>极速</span>
+                <small>75 ms</small>
+              </button>
+            </div>
+          </section>
+
+          <section class="panel-section">
+            <div class="section-heading">
+              <span>02</span>
+              <h2>操作方式</h2>
+            </div>
+            <dl class="control-list">
+              <div>
+                <dt>移动</dt>
+                <dd><kbd>↑</kbd><kbd>↓</kbd><kbd>←</kbd><kbd>→</kbd> / <kbd>WASD</kbd></dd>
+              </div>
+              <div>
+                <dt>暂停</dt>
+                <dd><kbd>空格</kbd></dd>
+              </div>
+              <div>
+                <dt>重开</dt>
+                <dd><kbd>R</kbd></dd>
+              </div>
+              <div>
+                <dt>静音</dt>
+                <dd><kbd>M</kbd></dd>
+              </div>
+            </dl>
+          </section>
+
+          <section class="tip-card">
+            <span class="tip-symbol" aria-hidden="true">✦</span>
+            <p>每吃到一个能量球获得 <strong>10</strong> 分，身体也会不断变长。</p>
+          </section>
+        </aside>
+      </section>
+
+      <footer>
+        <span>NEON SNAKE · 2026</span>
+        <span>保持专注，别咬到自己。</span>
+      </footer>
+    </main>
+
+    <div class="sr-only" id="liveRegion" aria-live="polite"></div>
+
+    <script src="src/game-core.js"></script>
+    <script src="src/main.js"></script>
+  </body>
+</html>
