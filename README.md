@@ -66,11 +66,11 @@ npm test
 
 ## 发布到 GitHub Pages
 
-仓库已经包含 Pages 部署工作流，首次推送时会自动启用 GitHub Pages。
+仓库已经包含可手动触发的 Pages 部署工作流。
 
-如果组织策略不允许工作流自动启用 Pages，请在仓库的 **Settings → Pages**
-中将 **Source** 手动设为 **GitHub Actions**，然后重新运行
-“Deploy to GitHub Pages” 工作流。
+1. 在仓库的 **Settings → Pages** 中将 **Source** 设为 **GitHub Actions**。
+2. 打开 **Actions → Deploy to GitHub Pages**。
+3. 点击 **Run workflow** 并选择 `main` 分支。
 
 部署地址通常为 `https://<用户名>.github.io/<仓库名>/`。
 
